@@ -4,6 +4,7 @@ import { list } from "../ls/ls.js";
 import path from "node:path";
 import { changeDir } from "../cd/cd.js";
 import { create } from "../fs/create.js";
+import { up } from "../cd/up.js";
 
 const userHomeDir = os.homedir();
 let currentDir;
@@ -47,6 +48,13 @@ export const startApp = async (username) => {
         } else {
           currentDir = extractPath;
         }
+        break;
+      case "up":
+        currentDir = currentDir.split("/").slice(0, -1).join("/");
+        if (currentDir.length === 0) {
+          currentDir = "/";
+        }
+        up(currentDir);
         break;
       case ".exit":
         console.log(`Thank you for using File Manager, ${username}, goodbye!`);
