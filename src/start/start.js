@@ -5,6 +5,7 @@ import path from "node:path";
 import { changeDir } from "../cd/cd.js";
 import { create } from "../fs/create.js";
 import { up } from "../cd/up.js";
+import { read } from "../fs/read.js";
 
 const userHomeDir = os.homedir();
 let currentDir;
@@ -55,6 +56,9 @@ export const startApp = async (username) => {
           currentDir = "/";
         }
         up(currentDir);
+        break;
+      case "cat":
+        read(currentDir, extractPath);
         break;
       case ".exit":
         console.log(`Thank you for using File Manager, ${username}, goodbye!`);
