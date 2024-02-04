@@ -6,6 +6,10 @@ import { changeDir } from "../cd/cd.js";
 import { create } from "../fs/create.js";
 import { up } from "../cd/up.js";
 import { read } from "../fs/read.js";
+import { rename } from "../fs/rename.js";
+import { copy } from "../fs/copy.js";
+import { remove } from "../fs/delete.js";
+import { move } from "../fs/move.js";
 
 const userHomeDir = os.homedir();
 let currentDir;
@@ -59,6 +63,18 @@ export const startApp = async (username) => {
         break;
       case "cat":
         read(currentDir, extractPath);
+        break;
+      case "rn":
+        rename(currentDir, extractPath);
+        break;
+      case "cp":
+        copy(currentDir, extractPath);
+        break;
+      case "mv":
+        move(currentDir, extractPath);
+        break;
+      case "rm":
+        remove(currentDir, extractPath);
         break;
       case ".exit":
         console.log(`Thank you for using File Manager, ${username}, goodbye!`);
