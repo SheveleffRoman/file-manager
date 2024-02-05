@@ -25,10 +25,13 @@ export const startApp = async (username) => {
     prompt: "> ",
   });
 
+  let user;
+
   if (username.length === 0) {
-    console.log(`Welcome to the File Manager, anonymous!`);
+    user = "Anonymous";
+    console.log(`Welcome to the File Manager, ${user}!`);
   } else {
-    const user = username[0].split("=")[1];
+    user = username[0].split("=")[1];
     console.log(`Welcome to the File Manager, ${user}!`);
   }
 
