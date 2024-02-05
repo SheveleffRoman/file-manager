@@ -15,6 +15,7 @@ export const read = async (currentDir, pathToFile) => {
     readStream.setEncoding("utf-8");
     readStream.on("data", (data) => {
       console.log(data);
+      console.log(`You are currently in ${currentDir}`);
     });
   } catch (err) {
     console.log("Operation failed");
