@@ -44,10 +44,6 @@ export const startApp = async (username) => {
   rl.on("line", async (line) => {
     const extractPath = line.trim().split(" ").slice(1).join(" ");
     switch (line.trim().split(" ")[0]) {
-      case "add":
-        await create(currentDir, line.trim());
-        console.log(`You are currently in ${currentDir}`);
-        break;
       case "ls":
         console.log(currentDir);
         list(currentDir);
@@ -68,6 +64,9 @@ export const startApp = async (username) => {
           currentDir = "/";
         }
         up(currentDir);
+        break;
+      case "add":
+        await create(currentDir, extractPath);
         break;
       case "cat":
         read(currentDir, extractPath);
