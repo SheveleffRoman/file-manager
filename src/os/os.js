@@ -7,7 +7,7 @@ export const getOS = (command, currentDir) => {
       console.log(`You are currently in ${currentDir}`);
       break;
     case "--cpus":
-      console.log(os.cpus());
+      getCPUS();
       console.log(`You are currently in ${currentDir}`);
       break;
     case "--homedir":
@@ -25,4 +25,21 @@ export const getOS = (command, currentDir) => {
     default:
       console.log("Invalid input");
   }
+};
+
+const getCPUS = () => {
+  const data = os.cpus().map((processor) => ({
+    Model: processor.model,
+    "Clock rate": `${(processor.speed / 1000).toFixed(2)} GHz`,
+  }));
+
+  console.log(`\nOverall amount of CPUS: ${os.availableParallelism()}`);
+
+  data.forEach((data, i) => {
+    console.log(`\nCPU ${1 + i++}:`);
+
+    for (let [key, value] of Object.entries(data)) {
+      console.log(`${key} is ${value}`);
+    }
+  });
 };
