@@ -10,11 +10,16 @@ import { rename } from "../fs/rename.js";
 import { copy } from "../fs/copy.js";
 import { remove } from "../fs/delete.js";
 import { move } from "../fs/move.js";
+import { getOS } from "../os/os.js";
+import { calculateHash } from "../hash/hash.js";
+import { compress } from "../zip/compress.js";
+import { decompress } from "../zip/decompress.js";
 
 const userHomeDir = os.homedir();
 let currentDir;
 
 export const startApp = async (username) => {
+  const user = username[0].split("=")[1];
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -24,7 +29,7 @@ export const startApp = async (username) => {
   if (username.length === 0) {
     console.log(`Welcome to the File Manager, anonymous!`);
   } else {
-    console.log(`Welcome to the File Manager, ${username}!`);
+    console.log(`Welcome to the File Manager, ${user}!`);
   }
 
   currentDir = userHomeDir;
@@ -76,8 +81,20 @@ export const startApp = async (username) => {
       case "rm":
         remove(currentDir, extractPath);
         break;
+      case "os":
+        getOS(extractPath, currentDir);
+        break;
+      case "hash":
+        calculateHash(currentDir, extractPath);
+        break;
+      case "compress":
+        compress(currentDir, extractPath);
+        break;
+      case "decompress":
+        decompress(currentDir, extractPath);
+        break;
       case ".exit":
-        console.log(`Thank you for using File Manager, ${username}, goodbye!`);
+        console.log(`Thank you for using File Manager, ${user}, goodbye!`);
         process.exit(0);
       case "cwd":
         console.log(currentDir);
@@ -87,7 +104,7 @@ export const startApp = async (username) => {
     }
     rl.prompt();
   }).on("close", () => {
-    console.log(`Thank you for using File Manager, ${username}, goodbye!`);
+    console.log(`Thank you for using File Manager, ${user}, goodbye!`);
     process.exit(0);
   });
 };
