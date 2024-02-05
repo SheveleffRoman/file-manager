@@ -5,7 +5,12 @@ import { remove } from "./delete.js";
 export const move = async (currentDir, paths) => {
   const pathArr = paths.split(" ");
   const pathToFile = path.join(currentDir, pathArr[0]);
-  const newPath = path.join(pathArr[1], pathArr[0]);
+  let newPath;
+  if (pathArr[1].startsWith("/")) {
+    newPath = path.join(pathArr[1], pathArr[0]);
+  } else {
+    newPath = path.join(currentDir, pathArr[1], pathArr[0]);
+  }
 
   try {
     const readStream = createReadStream(pathToFile).on("error", () =>
@@ -15,7 +20,6 @@ export const move = async (currentDir, paths) => {
       console.log("Operation failed")
     );
     readStream.pipe(writeStream);
-    console.log(pathToFile);
     await remove(currentDir, pathToFile);
   } catch {
     console.log("Operation failed");
