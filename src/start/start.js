@@ -19,7 +19,6 @@ const userHomeDir = os.homedir();
 let currentDir;
 
 export const startApp = async (username) => {
-  const user = username[0].split("=")[1];
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -29,6 +28,7 @@ export const startApp = async (username) => {
   if (username.length === 0) {
     console.log(`Welcome to the File Manager, anonymous!`);
   } else {
+    const user = username[0].split("=")[1];
     console.log(`Welcome to the File Manager, ${user}!`);
   }
 
