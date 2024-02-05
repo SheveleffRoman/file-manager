@@ -6,6 +6,7 @@ export const remove = async (currentDir, pathFromLine) => {
     const absolutePath = path.join(pathFromLine);
     try {
       await fs.rm(absolutePath);
+      console.log(`You are currently in ${currentDir}`);
     } catch {
       console.log("Operation failed");
     }
@@ -13,6 +14,7 @@ export const remove = async (currentDir, pathFromLine) => {
     const relativePath = path.join(currentDir, pathFromLine);
     try {
       await fs.rm(relativePath);
+      console.log(`You are currently in ${currentDir}`);
     } catch {
       console.log("Operation failed");
     }
